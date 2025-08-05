@@ -1,10 +1,6 @@
 # 🧭 MediMap-XAI: Explainable Medical Search Framework
 
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)  
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  
-[![Streamlit App](https://img.shields.io/badge/Streamlit-Interactive_UI-FF4B4B)](https://streamlit.io)  
-[![MongoDB](https://img.shields.io/badge/MongoDB-NoSQL-green.svg)](https://www.mongodb.com/)  
-[![Transformers](https://img.shields.io/badge/Transformers-BioBERT%2FSciBERT-purple.svg)](https://huggingface.co/)  
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  [![Streamlit App](https://img.shields.io/badge/Streamlit-Interactive_UI-FF4B4B)](https://streamlit.io)  [![MongoDB](https://img.shields.io/badge/MongoDB-NoSQL-green.svg)](https://www.mongodb.com/)  [![Transformers](https://img.shields.io/badge/Transformers-BioBERT%2FSciBERT-purple.svg)](https://huggingface.co/)  
 
 ---
 
