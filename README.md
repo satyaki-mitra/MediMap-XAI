@@ -126,7 +126,7 @@ Visual cluster maps show:
 
 ### 3. Explainability Layer
 
-```mermaid
+````mermaid
 flowchart TD
     A[User Query] --> B[Embed using ClinicalBERT]
     B --> C[Project onto SOM Grid]
@@ -134,7 +134,7 @@ flowchart TD
     D --> E[Highlight Nearby Clusters]
     E --> F[Retrieve Cluster Documents]
     F --> G[Return Results with SOM-based Explanation]
-```
+````
 
 Features:
 
