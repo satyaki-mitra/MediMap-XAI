@@ -92,31 +92,40 @@ flowchart LR
 ## 🔹 Project Structure
 ```bash
 MediMap-XAI/
-├── app/
-│   └── streamlit_app.py        # Interactive SOM Explorer and Explanation UI
-├── data/
-│   └── raw_data/               # Original CSV datasets
-│       ├── drugsCom.csv
-│       ├── medquad.csv
-│       └── mtsamples.csv
-├── embeddings/                 # (Optional) Precomputed embedding cache
-├── models/
-│   └── som_model.pkl           # Serialized SOM
-├── notebooks/                  # EDA / experimentation
-├── scripts/
-│   ├── config.py               # Central configuration
-│   ├── db.py                   # MongoDB handler
-│   ├── utils.py                # Cleaning utilities
-│   ├── embedder.py             # SentenceTransformer embeddings
-│   ├── ingest.py               # Ingestion pipelines
-│   ├── som_cluster.py          # SOM training and cluster assignment
-│   ├── visualize_som.py        # Heatmaps, U-Matrix, keyword overlays
-│   ├── explainer.py            # Token-level & cluster-based explanations
-│   ├── search.py               # Cosine similarity retrieval
-│   └── main_pipeline.py        # Full ingestion + SOM training pipeline
-├── requirements.txt
-├── run.sh                      # Bootstraps ingestion & SOM training
-└── README.md                   # Project documentation
+├── app.py                         # Main Streamlit application
+├── core/                          # Core application logic
+│   ├── confidence_analyzer.py     # Confidence scoring and explanations
+│   ├── file_handler.py            # File upload processing
+│   ├── search_engine.py           # Semantic search implementation
+│   ├── system_manager.py          # System initialization
+├── data_ingestion.py              # Data ingestion pipeline
+├── run_som_training.py            # SOM model training pipeline
+├── src/                           # Core processing modules
+│   ├── config.py                  # Paths and configurations
+│   ├── db.py                      # MongoDB operations
+│   ├── embedder.py                # BioBERT/SciBERT embeddings
+│   ├── explainer.py               # Explanation generation
+│   ├── ingest.py                  # Data ingestion logic
+│   ├── search.py                  # Vector search implementation
+│   ├── som_clusterer.py           # SOM training and clustering
+│   ├── som_visualizer.py          # SOM visualization tools
+│   └── utils.py                   # Utility functions
+├── ui/                            # User interface components
+│   ├── components.py              # Streamlit UI components
+│   ├── layouts.py                 # Page layouts
+│   └── visualizations.py          # Interactive visualizations
+├── data/raw_data/                 # Medical datasets
+│   ├── drug_reviews.csv
+│   ├── medical_qa.csv
+│   └── medical_reports.csv
+├── models/                        # Trained models and visualizations
+│   ├── som_model.pkl
+│   └── visualizations/
+├── logs/                          # System logs
+│   ├── data_ingestion.log
+│   └── model_training.log
+├── requirements.txt               # Python dependencies
+└── README.md                      # Project documentation
 ```
 
 ---
@@ -141,9 +150,9 @@ graph TD
 
 ## ⚡ Quickstart
 
-- **1️⃣ Setup Environment**
+- **1. Setup Environment**
 ```bash
-git clone <repo-url> MediMap-XAI
+git clone https://github.com/satyaki-mitra/MediMap-XAI.git
 cd MediMap-XAI
 python -m venv .venv
 source .venv/bin/activate  # Linux/Mac
@@ -151,20 +160,32 @@ pip install -r requirements.txt
 python -c "import nltk; nltk.download('punkt')"
 ```
 
-- **2️⃣ Run Full Pipeline**
+- **2. Data Ingestion**
 ```bash
-./run.sh
+python data_ingestion.py
 ```
-- Cleans CSVs → embeds → stores in MongoDB
+- Processes medical datasets
 
-- Trains SOM → assigns som_cluster → saves som_model.pkl
+- Generates embeddings
 
+- Stores data in MongoDB
 
-- **3️⃣ Launch Interactive UI**
+- **3. Train SOM Model**
 ```bash
-streamlit run app/streamlit_app.py
+python run_som_training.py
 ```
+- Trains Self-Organizing Map
 
+- Assigns documents to clusters
+
+- Generates visualizations
+
+- Validates model performance
+
+- **3. Launch Application**
+```bash
+streamlit run app.py
+```
 ---
 
 ### 🧪 Explainable Query → Article Example
