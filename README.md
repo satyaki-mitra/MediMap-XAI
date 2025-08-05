@@ -9,6 +9,37 @@ It enables **semantic clustering**, **interactive visualizations**, and **explai
 
 ---
 
+## 🔍 Overview
+
+In the clinical domain, where interpretability can directly impact trust, MediMap-XAI integrates a semantic search backend with a powerful explainable layer based on SOMs, enabling users to:
+
+- **Search** using free-text queries for clinical/medical documents.
+- **Visualize** document clusters and contextual relevance.
+- **Explain** search results through proximity on SOM clusters.
+  
+---
+
+## 🧠 Why Self-Organizing Maps (SOM)?
+
+In contrast to black-box models like deep neural nets, SOMs provide:
+
+- **Topological preservation**: similar input vectors are mapped close together.
+- **Clustering + visualization**: allowing a 2D representation of high-dimensional data.
+- **Unsupervised learning**: ideal for unlabelled medical corpora.
+- **Interpretable results**: clusters that explain similarity neighborhoods.
+
+---
+
+## 🤖 Why MiniSOM?
+
+We chose [MiniSom](https://github.com/JustGlowing/minisom) because:
+
+- It's a **lightweight**, pure Python implementation.
+- Easily integrates with numpy/pandas-based pipelines.
+- Ideal for visualization + embedding workflows.
+
+---
+
 ## 🎯 Hero Features
 
 - 🔹 **Interactive SOM heatmap with keyword overlay**  
@@ -75,17 +106,57 @@ It enables **semantic clustering**, **interactive visualizations**, and **explai
 
 ---
 
-## 🏗️ Project Pipeline (Dynamic Mermaid Diagram)
+## ⚙️ Features
+
+### 1. Search Functionality
+
+Users can:
+
+- Submit free-text queries (e.g., "Type II diabetes neuropathy symptoms").
+- Search is powered by cosine similarity on document embeddings (BERT/Sentence-BERT).
+- Most similar document(s) returned with relevance score.
+
+### 2. SOM Cluster Visualization
+
+Visual cluster maps show:
+
+- Cluster centers formed by SOM on clinical document embeddings.
+- Density of document types across SOM regions.
+- Query projected onto this map with distance to nearby clusters.
+
+### 3. Explainability Layer
 
 ```mermaid
-flowchart LR
-    A[Raw Data CSVs\n(Reports, Q&A, Drug Reviews)] --> B[Cleaning & Preprocessing\nDe-identification, Tokenization]
-    B --> C[Embeddings\nBioBERT/SciBERT]
-    C --> D[MongoDB Storage]
-    D --> E[SOM Clustering\n(10x10 Map)]
-    E --> F[XAI Layer\n(Query→Article + Token Importance)]
-    F --> G[Streamlit UI\nInteractive Heatmap + Inspector]
+flowchart TD
+    A[User Query] --> B[Embed using ClinicalBERT]
+    B --> C[Project onto SOM Grid]
+    C --> D[Get BMU (Best Matching Unit)]
+    D --> E[Highlight Nearby Clusters]
+    E --> F[Retrieve Cluster Documents]
+    F --> G[Return Results with SOM-based Explanation]
 ```
+
+Features:
+
+- **Query projection**: Shows where the query lies on the 2D map.
+- **Token attention overlay**: Identifies which parts of the query match cluster semantics.
+- **Confidence Score**: Based on the SOM distance metric from BMU (Best Matching Unit).
+- **Visual Diagnostics**: Shows how close a query is to different clinical clusters.
+
+---
+
+## 📊 Visual Outputs
+
+All visual assets are saved in:
+
+```bash
+models/visualizations/
+├── cluster_map.png              # Full SOM grid with clusters
+├── query_projection.png         # Where the user's query hits
+└── keyword_density_map.png      # Density of important tokens per region
+```
+
+These are dynamically updated and shown in the app during runtime.
 
 ---
 
@@ -182,32 +253,78 @@ python run_som_training.py
 
 - Validates model performance
 
-- **3. Launch Application**
+- **4. Launch Application**
 ```bash
 streamlit run app.py
 ```
+
+**Explore**
+   - Type a clinical query.
+   - View most relevant document + visualization of how and why it was chosen.
 ---
 
-### 🧪 Explainable Query → Article Example
+## 🔄 Search Workflow Summary
 
-- Query: "I have frequent urination and excessive thirst. Could it be diabetes?"
+```mermaid
+graph TD
+    A[User inputs clinical query] --> B[Query embedded via ClinicalBERT]
+    B --> C[Cosine Similarity with document vectors]
+    C --> D[Top N documents retrieved]
+    B --> E[Projected onto SOM]
+    E --> F[Find closest BMU & cluster]
+    F --> G[Highlight region & explanation visuals]
+```
 
-- XAI Output in Streamlit:
-                          - Cosine similarity: 0.873
+---
 
-                          - Cluster distance: 1.0
+## 🧬 Explainability System (XAI)
 
-                          - Top contributing tokens:
+### SOM-based Clustering
 
-                          - diabetes (+0.082)
+SOM is trained on embedded representations of clinical notes to form clusters. Each cluster represents semantically similar documents.
 
-                          - thirst (+0.047)
+### Query Explanation
 
-                          - urination (+0.036)
+- Query embedding is mapped to the closest SOM node.
+- Cluster associated with this node is visualized.
+- Proximity to neighboring clusters gives insight into **borderline interpretations**.
 
-> ✅ Explains why the query matched those articles and its cluster.
+### Confidence Analysis
 
-----
+- **BMU Distance Score**: Smaller → higher semantic fit.
+- **Keyword Density Map**: Where your query’s keywords are most active.
+- **Overlay Attention**: Tokens with highest impact shown.
+
+---
+
+## 💡 Real-World Use Cases
+
+- Clinical decision support with transparent retrieval
+- Radiologist report retrieval by symptom match
+- Literature search with visual diagnostic traceability
+- Legal/medical audit trails for NLP-based predictions
+
+---
+
+## 🚀 Extensibility
+
+- Swap in **BioBERT**, **BlueBERT**, or **Med-BERT** for domain-specific language modeling.
+- Upgrade SOM to **UMAP** or **t-SNE** overlays.
+- Plug in **SHAP/LIME** for deeper local explanations.
+
+---
+
+## 👩‍⚕️ Example UI Snapshot (Mermaid View)
+
+```mermaid
+graph TD
+    UI[User Search UI] --> QueryEmbed
+    QueryEmbed[Embed Query (SBERT)] --> SOMProject
+    SOMProject[Project to SOM Grid] --> ClusterDoc
+    ClusterDoc[Retrieve Cluster Docs] --> ShowResult[Display Explanations + Doc]
+```
+
+---
 
 ## 📈 Future Enhancements
 
