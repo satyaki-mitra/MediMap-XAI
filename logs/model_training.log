@@ -1,0 +1,570 @@
+2025-08-05 11:04:30,969 - __main__ - INFO - Starting Model Training Pipeline
+2025-08-05 11:04:30,969 - __main__ - INFO - ================================================================================
+2025-08-05 11:04:30,969 - __main__ - INFO - Connecting to database...
+2025-08-05 11:04:30,974 - src.db - INFO - Connected to MongoDB at: mongodb://localhost:27017 (attempted: 1)
+2025-08-05 11:04:30,974 - src.db - INFO - Collection names: ['queries', 'drug_reviews', 'reports']
+2025-08-05 11:04:30,974 - __main__ - INFO - Connected to MongoDB. Collections: ['queries', 'drug_reviews', 'reports']
+2025-08-05 11:04:30,974 - __main__ - INFO - Loading embedding model...
+2025-08-05 11:04:30,975 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb
+2025-08-05 11:04:36,369 - src.embedder - INFO - Loaded embedding model: pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb on cpu
+2025-08-05 11:04:36,459 - __main__ - INFO - Embedder loaded. Dimension: 768
+2025-08-05 11:04:36,459 - __main__ - INFO - Validating training data...
+2025-08-05 11:04:36,471 - src.db - INFO - Counted 9998 documents in reports for query: {}
+2025-08-05 11:04:36,472 - __main__ - INFO - reports: 9998 documents
+2025-08-05 11:04:36,495 - src.db - INFO - Counted 32824 documents in queries for query: {}
+2025-08-05 11:04:36,496 - __main__ - INFO - queries: 32824 documents
+2025-08-05 11:04:36,608 - src.db - INFO - Counted 430128 documents in drug_reviews for query: {}
+2025-08-05 11:04:36,608 - __main__ - INFO - drug_reviews: 430128 documents
+2025-08-05 11:04:36,873 - src.db - INFO - Counted 9998 documents in reports for query: {'embedding': {'$exists': True, '$ne': None}}
+2025-08-05 11:04:36,873 - __main__ - INFO - reports: 9998 documents with embeddings
+2025-08-05 11:04:37,736 - src.db - INFO - Counted 32824 documents in queries for query: {'embedding': {'$exists': True, '$ne': None}}
+2025-08-05 11:04:37,736 - __main__ - INFO - queries: 32824 documents with embeddings
+2025-08-05 11:04:49,138 - src.db - INFO - Counted 430128 documents in drug_reviews for query: {'embedding': {'$exists': True, '$ne': None}}
+2025-08-05 11:04:49,138 - __main__ - INFO - drug_reviews: 430128 documents with embeddings
+2025-08-05 11:04:49,138 - __main__ - INFO - Training data validation passed:
+2025-08-05 11:04:49,138 - __main__ - INFO - Total documents: 472950
+2025-08-05 11:04:49,139 - __main__ - INFO - Documents with embeddings: 472950
+2025-08-05 11:04:49,139 - __main__ - INFO - Checking for existing SOM model...
+2025-08-05 11:04:49,139 - __main__ - INFO - No existing model found
+2025-08-05 11:04:49,139 - __main__ - INFO - Starting SOM model training...
+2025-08-05 11:04:49,139 - __main__ - INFO - SOM dimensions: 12x12
+2025-08-05 11:04:49,139 - __main__ - INFO - Training iterations: 1000
+2025-08-05 11:04:49,139 - __main__ - INFO - Learning rate: 0.001
+2025-08-05 11:04:49,139 - __main__ - INFO - Sigma: 0.5
+2025-08-05 11:04:49,139 - __main__ - INFO - Beginning SOM training... This may take several minutes
+2025-08-05 11:04:49,451 - src.db - INFO - Found 9998 documents in reports for query: None
+2025-08-05 11:04:50,971 - src.db - INFO - Found 32824 documents in queries for query: None
+2025-08-05 11:05:10,134 - src.db - INFO - Found 430128 documents in drug_reviews for query: None
+2025-08-05 11:05:17,979 - src.som_clusterer - INFO - Loaded 472950 embeddings for SOM training
+2025-08-05 11:05:20,613 - src.som_clusterer - INFO - Training SOM on 472950 vectors of dimension 768
+2025-08-05 11:05:20,616 - src.som_clusterer - INFO - Starting SOM training for 1000 iterations...
+2025-08-05 11:05:20,863 - src.som_clusterer - INFO - SOM training complete. Assigning clusters to documents...
+2025-08-05 11:19:13,981 - src.som_clusterer - INFO - Cluster assignment complete: 472950 successful, 0 failed
+2025-08-05 11:19:13,982 - src.som_clusterer - INFO - SOM training successful: {'success': True, 'num_documents': 472950, 'embedding_dimension': 768, 'som_dimensions': (12, 12), 'iterations': 1000}
+2025-08-05 11:19:14,290 - __main__ - INFO - SOM training completed successfully!
+2025-08-05 11:19:14,290 - __main__ - INFO - Training duration: 865.15 seconds
+2025-08-05 11:19:14,290 - __main__ - INFO - Documents processed: 472950
+2025-08-05 11:19:14,290 - __main__ - INFO - Embedding dimension: 768
+2025-08-05 11:19:14,290 - __main__ - INFO - SOM dimensions: (12, 12)
+2025-08-05 11:19:14,293 - src.som_clusterer - INFO - SOM model saved to /Users/itobuz/projects/satyaki_personal/MediMap-XAI/models/som_model.pkl
+2025-08-05 11:19:14,293 - __main__ - INFO - SOM model saved successfully
+2025-08-05 11:19:14,293 - __main__ - INFO - Validating model performance...
+2025-08-05 11:19:14,293 - __main__ - INFO - Running search validation tests...
+2025-08-05 11:19:14,848 - src.db - INFO - Found 9998 documents in reports for query: None
+2025-08-05 11:19:16,771 - src.db - INFO - Found 32824 documents in queries for query: None
+2025-08-05 11:19:39,930 - src.db - INFO - Found 430128 documents in drug_reviews for query: None
+2025-08-05 11:19:54,653 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster': {'x': 3, 'y': 4, 'id': 40}}
+2025-08-05 11:19:54,656 - src.db - INFO - Found 10 documents in queries for query: {'som_cluster': {'x': 3, 'y': 4, 'id': 40}}
+2025-08-05 11:19:54,675 - src.db - INFO - Found 10 documents in drug_reviews for query: {'som_cluster': {'x': 3, 'y': 4, 'id': 40}}
+2025-08-05 11:19:54,675 - __main__ - INFO - Test 1/5: 5 results
+2025-08-05 11:19:55,113 - src.db - INFO - Found 9998 documents in reports for query: None
+2025-08-05 11:19:56,850 - src.db - INFO - Found 32824 documents in queries for query: None
+2025-08-05 11:20:17,523 - src.db - INFO - Found 430128 documents in drug_reviews for query: None
+2025-08-05 11:20:32,875 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster': {'x': 6, 'y': 5, 'id': 77}}
+2025-08-05 11:20:32,879 - src.db - INFO - Found 10 documents in queries for query: {'som_cluster': {'x': 6, 'y': 5, 'id': 77}}
+2025-08-05 11:20:32,886 - src.db - INFO - Found 10 documents in drug_reviews for query: {'som_cluster': {'x': 6, 'y': 5, 'id': 77}}
+2025-08-05 11:20:32,886 - __main__ - INFO - Test 2/5: 5 results
+2025-08-05 11:20:33,345 - src.db - INFO - Found 9998 documents in reports for query: None
+2025-08-05 11:20:34,973 - src.db - INFO - Found 32824 documents in queries for query: None
+2025-08-05 11:20:55,315 - src.db - INFO - Found 430128 documents in drug_reviews for query: None
+2025-08-05 11:21:09,508 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster': {'x': 1, 'y': 9, 'id': 21}}
+2025-08-05 11:21:09,509 - src.db - INFO - Found 10 documents in queries for query: {'som_cluster': {'x': 1, 'y': 9, 'id': 21}}
+2025-08-05 11:21:09,529 - src.db - INFO - Found 10 documents in drug_reviews for query: {'som_cluster': {'x': 1, 'y': 9, 'id': 21}}
+2025-08-05 11:21:09,529 - __main__ - INFO - Test 3/5: 5 results
+2025-08-05 11:21:09,983 - src.db - INFO - Found 9998 documents in reports for query: None
+2025-08-05 11:21:11,553 - src.db - INFO - Found 32824 documents in queries for query: None
+2025-08-05 11:21:33,131 - src.db - INFO - Found 430128 documents in drug_reviews for query: None
+2025-08-05 11:21:47,311 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster': {'x': 7, 'y': 9, 'id': 93}}
+2025-08-05 11:21:47,312 - src.db - INFO - Found 10 documents in queries for query: {'som_cluster': {'x': 7, 'y': 9, 'id': 93}}
+2025-08-05 11:21:47,318 - src.db - INFO - Found 10 documents in drug_reviews for query: {'som_cluster': {'x': 7, 'y': 9, 'id': 93}}
+2025-08-05 11:21:47,319 - __main__ - INFO - Test 4/5: 5 results
+2025-08-05 11:21:47,744 - src.db - INFO - Found 9998 documents in reports for query: None
+2025-08-05 11:21:49,419 - src.db - INFO - Found 32824 documents in queries for query: None
+2025-08-05 11:22:09,728 - src.db - INFO - Found 430128 documents in drug_reviews for query: None
+2025-08-05 11:22:25,544 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster': {'x': 2, 'y': 9, 'id': 33}}
+2025-08-05 11:22:25,545 - src.db - INFO - Found 10 documents in queries for query: {'som_cluster': {'x': 2, 'y': 9, 'id': 33}}
+2025-08-05 11:22:25,613 - src.db - INFO - Found 10 documents in drug_reviews for query: {'som_cluster': {'x': 2, 'y': 9, 'id': 33}}
+2025-08-05 11:22:25,613 - __main__ - INFO - Test 5/5: 5 results
+2025-08-05 11:22:25,613 - __main__ - INFO - Analyzing cluster distribution...
+2025-08-05 11:22:25,994 - __main__ - INFO - Model validation passed!
+2025-08-05 11:22:25,994 - __main__ - INFO - Search success rate: 100.0%
+2025-08-05 11:22:25,994 - __main__ - INFO - Average similarity: 0.764
+2025-08-05 11:22:25,994 - __main__ - INFO - Clusters utilized: 144
+2025-08-05 11:22:25,995 - __main__ - INFO - Generating SOM visualizations...
+2025-08-05 11:22:25,995 - src.som_visualizer - INFO - SOM dimensions: (12, 12)
+2025-08-05 11:22:25,995 - __main__ - INFO - Generating occupancy plot for reports...
+2025-08-05 11:22:26,325 - src.db - INFO - Found 9998 documents in reports for query: None
+2025-08-05 11:22:27,153 - src.som_visualizer - INFO - Occupancy plot saved to /Users/itobuz/projects/satyaki_personal/MediMap-XAI/models/visualizations/reports_occupancy.png
+2025-08-05 11:36:26,215 - __main__ - INFO - Generating occupancy plot for queries...
+2025-08-05 11:36:27,505 - src.db - INFO - Found 32824 documents in queries for query: None
+2025-08-05 11:36:28,671 - src.som_visualizer - INFO - Occupancy plot saved to /Users/itobuz/projects/satyaki_personal/MediMap-XAI/models/visualizations/queries_occupancy.png
+2025-08-05 11:36:37,686 - __main__ - INFO - Generating occupancy plot for drug_reviews...
+2025-08-05 11:36:56,587 - src.db - INFO - Found 430128 documents in drug_reviews for query: None
+2025-08-05 11:37:07,371 - src.som_visualizer - INFO - Occupancy plot saved to /Users/itobuz/projects/satyaki_personal/MediMap-XAI/models/visualizations/drug_reviews_occupancy.png
+2025-08-05 11:37:20,113 - __main__ - INFO - Generating U-Matrix...
+2025-08-05 11:37:20,468 - src.som_visualizer - INFO - U-Matrix saved to /Users/itobuz/projects/satyaki_personal/MediMap-XAI/models/visualizations/u_matrix.png
+2025-08-05 11:37:24,007 - __main__ - INFO - Generating keyword overlay...
+2025-08-05 11:37:24,027 - src.db - INFO - Found 36 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 0}
+2025-08-05 11:37:24,056 - src.db - INFO - Found 28 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 0}
+2025-08-05 11:37:24,326 - src.db - INFO - Found 4642 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 0}
+2025-08-05 11:37:25,098 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 1}
+2025-08-05 11:37:25,121 - src.db - INFO - Found 6 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 1}
+2025-08-05 11:37:25,387 - src.db - INFO - Found 2691 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 1}
+2025-08-05 11:37:25,774 - src.db - INFO - Found 2 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 2}
+2025-08-05 11:37:25,808 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 2}
+2025-08-05 11:37:26,075 - src.db - INFO - Found 4017 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 2}
+2025-08-05 11:37:26,718 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 3}
+2025-08-05 11:37:26,741 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 3}
+2025-08-05 11:37:27,003 - src.db - INFO - Found 567 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 3}
+2025-08-05 11:37:27,058 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 4}
+2025-08-05 11:37:27,080 - src.db - INFO - Found 5 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 4}
+2025-08-05 11:37:27,357 - src.db - INFO - Found 14640 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 4}
+2025-08-05 11:37:29,989 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 5}
+2025-08-05 11:37:30,017 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 5}
+2025-08-05 11:37:30,282 - src.db - INFO - Found 2085 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 5}
+2025-08-05 11:37:30,604 - src.db - INFO - Found 6 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 6}
+2025-08-05 11:37:30,637 - src.db - INFO - Found 21 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 6}
+2025-08-05 11:37:30,902 - src.db - INFO - Found 2373 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 6}
+2025-08-05 11:37:31,287 - src.db - INFO - Found 2 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 7}
+2025-08-05 11:37:31,331 - src.db - INFO - Found 6135 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 7}
+2025-08-05 11:37:31,591 - src.db - INFO - Found 6 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 7}
+2025-08-05 11:37:33,828 - src.db - INFO - Found 24 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 8}
+2025-08-05 11:37:33,856 - src.db - INFO - Found 11 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 8}
+2025-08-05 11:37:34,129 - src.db - INFO - Found 7594 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 8}
+2025-08-05 11:37:35,795 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 9}
+2025-08-05 11:37:35,823 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 9}
+2025-08-05 11:37:36,091 - src.db - INFO - Found 1005 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 9}
+2025-08-05 11:37:36,281 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 10}
+2025-08-05 11:37:36,318 - src.db - INFO - Found 1 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 10}
+2025-08-05 11:37:36,580 - src.db - INFO - Found 824 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 10}
+2025-08-05 11:37:36,657 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 0, 'som_cluster.y': 11}
+2025-08-05 11:37:36,679 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 0, 'som_cluster.y': 11}
+2025-08-05 11:37:36,949 - src.db - INFO - Found 1358 documents in drug_reviews for query: {'som_cluster.x': 0, 'som_cluster.y': 11}
+2025-08-05 11:37:37,171 - src.db - INFO - Found 3 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 0}
+2025-08-05 11:37:37,195 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 0}
+2025-08-05 11:37:37,457 - src.db - INFO - Found 741 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 0}
+2025-08-05 11:37:37,558 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 1}
+2025-08-05 11:37:37,580 - src.db - INFO - Found 5 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 1}
+2025-08-05 11:37:37,848 - src.db - INFO - Found 3856 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 1}
+2025-08-05 11:37:38,378 - src.db - INFO - Found 41 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 2}
+2025-08-05 11:37:38,404 - src.db - INFO - Found 1 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 2}
+2025-08-05 11:37:38,683 - src.db - INFO - Found 13866 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 2}
+2025-08-05 11:37:41,655 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 3}
+2025-08-05 11:37:41,688 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 3}
+2025-08-05 11:37:41,950 - src.db - INFO - Found 1250 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 3}
+2025-08-05 11:37:42,109 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 4}
+2025-08-05 11:37:42,130 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 4}
+2025-08-05 11:37:42,392 - src.db - INFO - Found 965 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 4}
+2025-08-05 11:37:42,521 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 5}
+2025-08-05 11:37:42,543 - src.db - INFO - Found 9 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 5}
+2025-08-05 11:37:42,811 - src.db - INFO - Found 7087 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 5}
+2025-08-05 11:37:43,723 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 6}
+2025-08-05 11:37:43,750 - src.db - INFO - Found 13 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 6}
+2025-08-05 11:37:44,014 - src.db - INFO - Found 473 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 6}
+2025-08-05 11:37:44,074 - src.db - INFO - Found 8 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 7}
+2025-08-05 11:37:44,096 - src.db - INFO - Found 9 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 7}
+2025-08-05 11:37:44,361 - src.db - INFO - Found 128 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 7}
+2025-08-05 11:37:44,396 - src.db - INFO - Found 230 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 8}
+2025-08-05 11:37:44,419 - src.db - INFO - Found 109 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 8}
+2025-08-05 11:37:44,678 - src.db - INFO - Found 54 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 8}
+2025-08-05 11:37:44,834 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 9}
+2025-08-05 11:37:44,856 - src.db - INFO - Found 109 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 9}
+2025-08-05 11:37:45,121 - src.db - INFO - Found 676 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 9}
+2025-08-05 11:37:45,215 - src.db - INFO - Found 6 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 10}
+2025-08-05 11:37:45,237 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 10}
+2025-08-05 11:37:45,505 - src.db - INFO - Found 6040 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 10}
+2025-08-05 11:37:46,538 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 1, 'som_cluster.y': 11}
+2025-08-05 11:37:46,567 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 1, 'som_cluster.y': 11}
+2025-08-05 11:37:46,834 - src.db - INFO - Found 2785 documents in drug_reviews for query: {'som_cluster.x': 1, 'som_cluster.y': 11}
+2025-08-05 11:37:47,211 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 0}
+2025-08-05 11:37:47,244 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 0}
+2025-08-05 11:37:47,512 - src.db - INFO - Found 3340 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 0}
+2025-08-05 11:37:48,088 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 1}
+2025-08-05 11:37:48,115 - src.db - INFO - Found 5 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 1}
+2025-08-05 11:37:48,383 - src.db - INFO - Found 2669 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 1}
+2025-08-05 11:37:48,796 - src.db - INFO - Found 22 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 2}
+2025-08-05 11:37:48,828 - src.db - INFO - Found 7 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 2}
+2025-08-05 11:37:49,100 - src.db - INFO - Found 8843 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 2}
+2025-08-05 11:37:50,708 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 3}
+2025-08-05 11:37:50,735 - src.db - INFO - Found 7 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 3}
+2025-08-05 11:37:50,996 - src.db - INFO - Found 501 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 3}
+2025-08-05 11:37:51,082 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 4}
+2025-08-05 11:37:51,104 - src.db - INFO - Found 39 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 4}
+2025-08-05 11:37:51,365 - src.db - INFO - Found 1498 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 4}
+2025-08-05 11:37:51,567 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 5}
+2025-08-05 11:37:51,590 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 5}
+2025-08-05 11:37:51,850 - src.db - INFO - Found 821 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 5}
+2025-08-05 11:37:51,922 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 6}
+2025-08-05 11:37:51,944 - src.db - INFO - Found 24 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 6}
+2025-08-05 11:37:52,208 - src.db - INFO - Found 615 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 6}
+2025-08-05 11:37:52,242 - src.db - INFO - Found 6 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 7}
+2025-08-05 11:37:52,264 - src.db - INFO - Found 4 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 7}
+2025-08-05 11:37:52,530 - src.db - INFO - Found 4647 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 7}
+2025-08-05 11:37:53,138 - src.db - INFO - Found 28 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 8}
+2025-08-05 11:37:53,162 - src.db - INFO - Found 4 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 8}
+2025-08-05 11:37:53,425 - src.db - INFO - Found 1867 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 8}
+2025-08-05 11:37:53,753 - src.db - INFO - Found 62 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 9}
+2025-08-05 11:37:53,791 - src.db - INFO - Found 4164 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 9}
+2025-08-05 11:37:54,050 - src.db - INFO - Found 43 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 9}
+2025-08-05 11:37:56,567 - src.db - INFO - Found 392 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 10}
+2025-08-05 11:37:56,602 - src.db - INFO - Found 26 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 10}
+2025-08-05 11:37:56,861 - src.db - INFO - Found 156 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 10}
+2025-08-05 11:37:57,053 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 2, 'som_cluster.y': 11}
+2025-08-05 11:37:57,075 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 2, 'som_cluster.y': 11}
+2025-08-05 11:37:57,339 - src.db - INFO - Found 2447 documents in drug_reviews for query: {'som_cluster.x': 2, 'som_cluster.y': 11}
+2025-08-05 11:37:57,794 - src.db - INFO - Found 12 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 0}
+2025-08-05 11:37:57,838 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 0}
+2025-08-05 11:37:58,102 - src.db - INFO - Found 1707 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 0}
+2025-08-05 11:37:58,414 - src.db - INFO - Found 8 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 1}
+2025-08-05 11:37:58,467 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 1}
+2025-08-05 11:37:58,735 - src.db - INFO - Found 2064 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 1}
+2025-08-05 11:37:58,953 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 2}
+2025-08-05 11:37:58,975 - src.db - INFO - Found 33 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 2}
+2025-08-05 11:37:59,236 - src.db - INFO - Found 120 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 2}
+2025-08-05 11:37:59,253 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 3}
+2025-08-05 11:37:59,275 - src.db - INFO - Found 4 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 3}
+2025-08-05 11:37:59,546 - src.db - INFO - Found 2318 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 3}
+2025-08-05 11:37:59,897 - src.db - INFO - Found 31 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 4}
+2025-08-05 11:37:59,925 - src.db - INFO - Found 944 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 4}
+2025-08-05 11:38:00,188 - src.db - INFO - Found 346 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 4}
+2025-08-05 11:38:00,657 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 5}
+2025-08-05 11:38:00,696 - src.db - INFO - Found 12 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 5}
+2025-08-05 11:38:00,959 - src.db - INFO - Found 317 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 5}
+2025-08-05 11:38:00,988 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 6}
+2025-08-05 11:38:01,010 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 6}
+2025-08-05 11:38:01,275 - src.db - INFO - Found 5328 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 6}
+2025-08-05 11:38:02,142 - src.db - INFO - Found 12 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 7}
+2025-08-05 11:38:02,172 - src.db - INFO - Found 167 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 7}
+2025-08-05 11:38:02,437 - src.db - INFO - Found 4609 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 7}
+2025-08-05 11:38:03,153 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 8}
+2025-08-05 11:38:03,185 - src.db - INFO - Found 1 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 8}
+2025-08-05 11:38:03,451 - src.db - INFO - Found 2347 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 8}
+2025-08-05 11:38:03,773 - src.db - INFO - Found 42 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 9}
+2025-08-05 11:38:03,801 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 9}
+2025-08-05 11:38:04,068 - src.db - INFO - Found 3179 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 9}
+2025-08-05 11:38:04,640 - src.db - INFO - Found 88 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 10}
+2025-08-05 11:38:04,668 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 10}
+2025-08-05 11:38:04,932 - src.db - INFO - Found 1225 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 10}
+2025-08-05 11:38:05,229 - src.db - INFO - Found 8 documents in reports for query: {'som_cluster.x': 3, 'som_cluster.y': 11}
+2025-08-05 11:38:05,254 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 3, 'som_cluster.y': 11}
+2025-08-05 11:38:05,525 - src.db - INFO - Found 9573 documents in drug_reviews for query: {'som_cluster.x': 3, 'som_cluster.y': 11}
+2025-08-05 11:38:07,426 - src.db - INFO - Found 7 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 0}
+2025-08-05 11:38:07,457 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 0}
+2025-08-05 11:38:07,730 - src.db - INFO - Found 9699 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 0}
+2025-08-05 11:38:09,834 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 1}
+2025-08-05 11:38:09,861 - src.db - INFO - Found 4 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 1}
+2025-08-05 11:38:10,121 - src.db - INFO - Found 286 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 1}
+2025-08-05 11:38:10,140 - src.db - INFO - Found 12 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 2}
+2025-08-05 11:38:10,162 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 2}
+2025-08-05 11:38:10,426 - src.db - INFO - Found 1302 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 2}
+2025-08-05 11:38:10,659 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 3}
+2025-08-05 11:38:10,680 - src.db - INFO - Found 1 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 3}
+2025-08-05 11:38:10,944 - src.db - INFO - Found 1072 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 3}
+2025-08-05 11:38:11,067 - src.db - INFO - Found 34 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 4}
+2025-08-05 11:38:11,090 - src.db - INFO - Found 195 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 4}
+2025-08-05 11:38:11,353 - src.db - INFO - Found 2138 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 4}
+2025-08-05 11:38:11,637 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 5}
+2025-08-05 11:38:11,668 - src.db - INFO - Found 5 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 5}
+2025-08-05 11:38:11,933 - src.db - INFO - Found 2320 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 5}
+2025-08-05 11:38:12,249 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 6}
+2025-08-05 11:38:12,277 - src.db - INFO - Found 3 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 6}
+2025-08-05 11:38:12,544 - src.db - INFO - Found 4258 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 6}
+2025-08-05 11:38:13,138 - src.db - INFO - Found 8 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 7}
+2025-08-05 11:38:13,169 - src.db - INFO - Found 3 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 7}
+2025-08-05 11:38:13,432 - src.db - INFO - Found 499 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 7}
+2025-08-05 11:38:13,473 - src.db - INFO - Found 12 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 8}
+2025-08-05 11:38:13,499 - src.db - INFO - Found 4 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 8}
+2025-08-05 11:38:13,767 - src.db - INFO - Found 3059 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 8}
+2025-08-05 11:38:14,000 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 9}
+2025-08-05 11:38:14,030 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 9}
+2025-08-05 11:38:14,306 - src.db - INFO - Found 13750 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 9}
+2025-08-05 11:38:16,904 - src.db - INFO - Found 28 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 10}
+2025-08-05 11:38:16,940 - src.db - INFO - Found 47 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 10}
+2025-08-05 11:38:17,218 - src.db - INFO - Found 2079 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 10}
+2025-08-05 11:38:17,558 - src.db - INFO - Found 16 documents in reports for query: {'som_cluster.x': 4, 'som_cluster.y': 11}
+2025-08-05 11:38:17,588 - src.db - INFO - Found 4 documents in queries for query: {'som_cluster.x': 4, 'som_cluster.y': 11}
+2025-08-05 11:38:17,859 - src.db - INFO - Found 1222 documents in drug_reviews for query: {'som_cluster.x': 4, 'som_cluster.y': 11}
+2025-08-05 11:38:18,017 - src.db - INFO - Found 8 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 0}
+2025-08-05 11:38:18,040 - src.db - INFO - Found 7 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 0}
+2025-08-05 11:38:18,312 - src.db - INFO - Found 5908 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 0}
+2025-08-05 11:38:19,307 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 1}
+2025-08-05 11:38:19,339 - src.db - INFO - Found 7 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 1}
+2025-08-05 11:38:19,617 - src.db - INFO - Found 722 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 1}
+2025-08-05 11:38:19,702 - src.db - INFO - Found 14 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 2}
+2025-08-05 11:38:19,724 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 2}
+2025-08-05 11:38:19,999 - src.db - INFO - Found 12357 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 2}
+2025-08-05 11:38:22,453 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 3}
+2025-08-05 11:38:22,482 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 3}
+2025-08-05 11:38:22,748 - src.db - INFO - Found 2283 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 3}
+2025-08-05 11:38:22,977 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 4}
+2025-08-05 11:38:23,003 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 4}
+2025-08-05 11:38:23,263 - src.db - INFO - Found 59 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 4}
+2025-08-05 11:38:23,276 - src.db - INFO - Found 72 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 5}
+2025-08-05 11:38:23,298 - src.db - INFO - Found 62 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 5}
+2025-08-05 11:38:23,561 - src.db - INFO - Found 713 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 5}
+2025-08-05 11:38:23,657 - src.db - INFO - Found 68 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 6}
+2025-08-05 11:38:23,679 - src.db - INFO - Found 6 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 6}
+2025-08-05 11:38:23,951 - src.db - INFO - Found 8610 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 6}
+2025-08-05 11:38:25,243 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 7}
+2025-08-05 11:38:25,270 - src.db - INFO - Found 3674 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 7}
+2025-08-05 11:38:25,534 - src.db - INFO - Found 14 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 7}
+2025-08-05 11:38:27,379 - src.db - INFO - Found 6 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 8}
+2025-08-05 11:38:27,407 - src.db - INFO - Found 9 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 8}
+2025-08-05 11:38:27,672 - src.db - INFO - Found 254 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 8}
+2025-08-05 11:38:27,698 - src.db - INFO - Found 16 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 9}
+2025-08-05 11:38:27,721 - src.db - INFO - Found 15 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 9}
+2025-08-05 11:38:27,990 - src.db - INFO - Found 7960 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 9}
+2025-08-05 11:38:29,405 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 10}
+2025-08-05 11:38:29,429 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 10}
+2025-08-05 11:38:29,691 - src.db - INFO - Found 2759 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 10}
+2025-08-05 11:38:30,124 - src.db - INFO - Found 6 documents in reports for query: {'som_cluster.x': 5, 'som_cluster.y': 11}
+2025-08-05 11:38:30,157 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 5, 'som_cluster.y': 11}
+2025-08-05 11:38:30,423 - src.db - INFO - Found 2362 documents in drug_reviews for query: {'som_cluster.x': 5, 'som_cluster.y': 11}
+2025-08-05 11:38:30,888 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 0}
+2025-08-05 11:38:30,916 - src.db - INFO - Found 3 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 0}
+2025-08-05 11:38:31,172 - src.db - INFO - Found 471 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 0}
+2025-08-05 11:38:31,221 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 1}
+2025-08-05 11:38:31,244 - src.db - INFO - Found 312 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 1}
+2025-08-05 11:38:31,500 - src.db - INFO - Found 28 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 1}
+2025-08-05 11:38:31,658 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 2}
+2025-08-05 11:38:31,680 - src.db - INFO - Found 20 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 2}
+2025-08-05 11:38:31,948 - src.db - INFO - Found 3304 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 2}
+2025-08-05 11:38:32,568 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 3}
+2025-08-05 11:38:32,604 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 3}
+2025-08-05 11:38:32,871 - src.db - INFO - Found 4597 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 3}
+2025-08-05 11:38:33,569 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 4}
+2025-08-05 11:38:33,624 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 4}
+2025-08-05 11:38:33,883 - src.db - INFO - Found 491 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 4}
+2025-08-05 11:38:33,949 - src.db - INFO - Found 38 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 5}
+2025-08-05 11:38:33,971 - src.db - INFO - Found 104 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 5}
+2025-08-05 11:38:34,233 - src.db - INFO - Found 1894 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 5}
+2025-08-05 11:38:34,598 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 6}
+2025-08-05 11:38:34,626 - src.db - INFO - Found 4 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 6}
+2025-08-05 11:38:34,891 - src.db - INFO - Found 921 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 6}
+2025-08-05 11:38:35,020 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 7}
+2025-08-05 11:38:35,042 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 7}
+2025-08-05 11:38:35,302 - src.db - INFO - Found 635 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 7}
+2025-08-05 11:38:35,365 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 8}
+2025-08-05 11:38:35,387 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 8}
+2025-08-05 11:38:35,651 - src.db - INFO - Found 3443 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 8}
+2025-08-05 11:38:36,255 - src.db - INFO - Found 34 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 9}
+2025-08-05 11:38:36,279 - src.db - INFO - Found 56 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 9}
+2025-08-05 11:38:36,537 - src.db - INFO - Found 1304 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 9}
+2025-08-05 11:38:36,811 - src.db - INFO - Found 76 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 10}
+2025-08-05 11:38:36,837 - src.db - INFO - Found 42 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 10}
+2025-08-05 11:38:37,096 - src.db - INFO - Found 1141 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 10}
+2025-08-05 11:38:37,259 - src.db - INFO - Found 48 documents in reports for query: {'som_cluster.x': 6, 'som_cluster.y': 11}
+2025-08-05 11:38:37,280 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 6, 'som_cluster.y': 11}
+2025-08-05 11:38:37,542 - src.db - INFO - Found 2391 documents in drug_reviews for query: {'som_cluster.x': 6, 'som_cluster.y': 11}
+2025-08-05 11:38:37,935 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 0}
+2025-08-05 11:38:37,957 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 0}
+2025-08-05 11:38:38,227 - src.db - INFO - Found 5787 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 0}
+2025-08-05 11:38:39,261 - src.db - INFO - Found 45 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 1}
+2025-08-05 11:38:39,288 - src.db - INFO - Found 16 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 1}
+2025-08-05 11:38:39,550 - src.db - INFO - Found 1175 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 1}
+2025-08-05 11:38:39,817 - src.db - INFO - Found 70 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 2}
+2025-08-05 11:38:39,842 - src.db - INFO - Found 14 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 2}
+2025-08-05 11:38:40,110 - src.db - INFO - Found 2123 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 2}
+2025-08-05 11:38:40,519 - src.db - INFO - Found 38 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 3}
+2025-08-05 11:38:40,547 - src.db - INFO - Found 20 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 3}
+2025-08-05 11:38:40,811 - src.db - INFO - Found 1990 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 3}
+2025-08-05 11:38:41,272 - src.db - INFO - Found 1232 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 4}
+2025-08-05 11:38:41,295 - src.db - INFO - Found 26 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 4}
+2025-08-05 11:38:41,557 - src.db - INFO - Found 56 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 4}
+2025-08-05 11:38:43,144 - src.db - INFO - Found 22 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 5}
+2025-08-05 11:38:43,169 - src.db - INFO - Found 1 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 5}
+2025-08-05 11:38:43,431 - src.db - INFO - Found 238 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 5}
+2025-08-05 11:38:43,501 - src.db - INFO - Found 26 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 6}
+2025-08-05 11:38:43,524 - src.db - INFO - Found 49 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 6}
+2025-08-05 11:38:43,797 - src.db - INFO - Found 10498 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 6}
+2025-08-05 11:38:46,057 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 7}
+2025-08-05 11:38:46,082 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 7}
+2025-08-05 11:38:46,354 - src.db - INFO - Found 2190 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 7}
+2025-08-05 11:38:46,691 - src.db - INFO - Found 12 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 8}
+2025-08-05 11:38:46,720 - src.db - INFO - Found 40 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 8}
+2025-08-05 11:38:46,983 - src.db - INFO - Found 1810 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 8}
+2025-08-05 11:38:47,309 - src.db - INFO - Found 5985 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 9}
+2025-08-05 11:38:47,348 - src.db - INFO - Found 9552 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 9}
+2025-08-05 11:38:47,611 - src.db - INFO - Found 1313 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 9}
+2025-08-05 11:39:00,262 - src.db - INFO - Found 20 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 10}
+2025-08-05 11:39:00,286 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 10}
+2025-08-05 11:39:00,553 - src.db - INFO - Found 5840 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 10}
+2025-08-05 11:39:01,888 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 7, 'som_cluster.y': 11}
+2025-08-05 11:39:01,920 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 7, 'som_cluster.y': 11}
+2025-08-05 11:39:02,181 - src.db - INFO - Found 558 documents in drug_reviews for query: {'som_cluster.x': 7, 'som_cluster.y': 11}
+2025-08-05 11:39:02,234 - src.db - INFO - Found 30 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 0}
+2025-08-05 11:39:02,256 - src.db - INFO - Found 55 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 0}
+2025-08-05 11:39:02,524 - src.db - INFO - Found 4421 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 0}
+2025-08-05 11:39:03,337 - src.db - INFO - Found 16 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 1}
+2025-08-05 11:39:03,362 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 1}
+2025-08-05 11:39:03,627 - src.db - INFO - Found 1336 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 1}
+2025-08-05 11:39:03,873 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 2}
+2025-08-05 11:39:03,904 - src.db - INFO - Found 5 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 2}
+2025-08-05 11:39:04,177 - src.db - INFO - Found 10453 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 2}
+2025-08-05 11:39:06,064 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 3}
+2025-08-05 11:39:06,097 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 3}
+2025-08-05 11:39:06,361 - src.db - INFO - Found 1406 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 3}
+2025-08-05 11:39:06,512 - src.db - INFO - Found 18 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 4}
+2025-08-05 11:39:06,534 - src.db - INFO - Found 9 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 4}
+2025-08-05 11:39:06,796 - src.db - INFO - Found 1548 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 4}
+2025-08-05 11:39:07,060 - src.db - INFO - Found 53 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 5}
+2025-08-05 11:39:07,088 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 5}
+2025-08-05 11:39:07,353 - src.db - INFO - Found 120 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 5}
+2025-08-05 11:39:07,415 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 6}
+2025-08-05 11:39:07,436 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 6}
+2025-08-05 11:39:07,701 - src.db - INFO - Found 990 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 6}
+2025-08-05 11:39:07,798 - src.db - INFO - Found 12 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 7}
+2025-08-05 11:39:07,819 - src.db - INFO - Found 18 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 7}
+2025-08-05 11:39:08,084 - src.db - INFO - Found 2920 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 7}
+2025-08-05 11:39:08,663 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 8}
+2025-08-05 11:39:08,698 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 8}
+2025-08-05 11:39:08,969 - src.db - INFO - Found 4702 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 8}
+2025-08-05 11:39:09,749 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 9}
+2025-08-05 11:39:09,777 - src.db - INFO - Found 56 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 9}
+2025-08-05 11:39:10,040 - src.db - INFO - Found 1054 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 9}
+2025-08-05 11:39:10,189 - src.db - INFO - Found 95 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 10}
+2025-08-05 11:39:10,211 - src.db - INFO - Found 25 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 10}
+2025-08-05 11:39:10,502 - src.db - INFO - Found 15421 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 10}
+2025-08-05 11:39:14,075 - src.db - INFO - Found 16 documents in reports for query: {'som_cluster.x': 8, 'som_cluster.y': 11}
+2025-08-05 11:39:14,099 - src.db - INFO - Found 3 documents in queries for query: {'som_cluster.x': 8, 'som_cluster.y': 11}
+2025-08-05 11:39:14,365 - src.db - INFO - Found 626 documents in drug_reviews for query: {'som_cluster.x': 8, 'som_cluster.y': 11}
+2025-08-05 11:39:14,417 - src.db - INFO - Found 8 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 0}
+2025-08-05 11:39:14,440 - src.db - INFO - Found 69 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 0}
+2025-08-05 11:39:14,700 - src.db - INFO - Found 958 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 0}
+2025-08-05 11:39:14,866 - src.db - INFO - Found 16 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 1}
+2025-08-05 11:39:14,888 - src.db - INFO - Found 7 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 1}
+2025-08-05 11:39:15,155 - src.db - INFO - Found 1248 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 1}
+2025-08-05 11:39:15,422 - src.db - INFO - Found 18 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 2}
+2025-08-05 11:39:15,456 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 2}
+2025-08-05 11:39:15,731 - src.db - INFO - Found 1345 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 2}
+2025-08-05 11:39:15,968 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 3}
+2025-08-05 11:39:15,998 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 3}
+2025-08-05 11:39:16,266 - src.db - INFO - Found 2446 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 3}
+2025-08-05 11:39:16,657 - src.db - INFO - Found 39 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 4}
+2025-08-05 11:39:16,687 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 4}
+2025-08-05 11:39:16,953 - src.db - INFO - Found 5307 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 4}
+2025-08-05 11:39:17,990 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 5}
+2025-08-05 11:39:18,017 - src.db - INFO - Found 59 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 5}
+2025-08-05 11:39:18,277 - src.db - INFO - Found 1031 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 5}
+2025-08-05 11:39:18,362 - src.db - INFO - Found 2 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 6}
+2025-08-05 11:39:18,383 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 6}
+2025-08-05 11:39:18,647 - src.db - INFO - Found 2718 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 6}
+2025-08-05 11:39:19,120 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 7}
+2025-08-05 11:39:19,155 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 7}
+2025-08-05 11:39:19,420 - src.db - INFO - Found 1071 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 7}
+2025-08-05 11:39:19,545 - src.db - INFO - Found 7 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 8}
+2025-08-05 11:39:19,570 - src.db - INFO - Found 1882 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 8}
+2025-08-05 11:39:19,829 - src.db - INFO - Found 21 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 8}
+2025-08-05 11:39:20,785 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 9}
+2025-08-05 11:39:20,821 - src.db - INFO - Found 5 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 9}
+2025-08-05 11:39:21,081 - src.db - INFO - Found 655 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 9}
+2025-08-05 11:39:21,137 - src.db - INFO - Found 40 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 10}
+2025-08-05 11:39:21,159 - src.db - INFO - Found 4 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 10}
+2025-08-05 11:39:21,422 - src.db - INFO - Found 4072 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 10}
+2025-08-05 11:39:22,267 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 9, 'som_cluster.y': 11}
+2025-08-05 11:39:22,297 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 9, 'som_cluster.y': 11}
+2025-08-05 11:39:22,560 - src.db - INFO - Found 2196 documents in drug_reviews for query: {'som_cluster.x': 9, 'som_cluster.y': 11}
+2025-08-05 11:39:22,959 - src.db - INFO - Found 10 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 0}
+2025-08-05 11:39:22,987 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 0}
+2025-08-05 11:39:23,256 - src.db - INFO - Found 1762 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 0}
+2025-08-05 11:39:23,540 - src.db - INFO - Found 6 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 1}
+2025-08-05 11:39:23,579 - src.db - INFO - Found 3202 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 1}
+2025-08-05 11:39:23,900 - src.db - INFO - Found 57 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 1}
+2025-08-05 11:39:25,678 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 2}
+2025-08-05 11:39:25,702 - src.db - INFO - Found 5 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 2}
+2025-08-05 11:39:25,965 - src.db - INFO - Found 893 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 2}
+2025-08-05 11:39:26,052 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 3}
+2025-08-05 11:39:26,074 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 3}
+2025-08-05 11:39:26,347 - src.db - INFO - Found 12941 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 3}
+2025-08-05 11:39:29,073 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 4}
+2025-08-05 11:39:29,103 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 4}
+2025-08-05 11:39:29,371 - src.db - INFO - Found 3627 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 4}
+2025-08-05 11:39:29,402 - src.db - INFO - Found 52 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 5}
+2025-08-05 11:39:29,424 - src.db - INFO - Found 14 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 5}
+2025-08-05 11:39:29,693 - src.db - INFO - Found 4251 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 5}
+2025-08-05 11:39:30,414 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 6}
+2025-08-05 11:39:30,442 - src.db - INFO - Found 15 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 6}
+2025-08-05 11:39:30,706 - src.db - INFO - Found 2129 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 6}
+2025-08-05 11:39:31,076 - src.db - INFO - Found 6 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 7}
+2025-08-05 11:39:31,110 - src.db - INFO - Found 9 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 7}
+2025-08-05 11:39:31,378 - src.db - INFO - Found 3752 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 7}
+2025-08-05 11:39:32,019 - src.db - INFO - Found 124 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 8}
+2025-08-05 11:39:32,049 - src.db - INFO - Found 3 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 8}
+2025-08-05 11:39:32,324 - src.db - INFO - Found 8370 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 8}
+2025-08-05 11:39:33,684 - src.db - INFO - Found 19 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 9}
+2025-08-05 11:39:33,710 - src.db - INFO - Found 34 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 9}
+2025-08-05 11:39:33,975 - src.db - INFO - Found 908 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 9}
+2025-08-05 11:39:34,087 - src.db - INFO - Found 46 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 10}
+2025-08-05 11:39:34,109 - src.db - INFO - Found 10 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 10}
+2025-08-05 11:39:34,371 - src.db - INFO - Found 815 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 10}
+2025-08-05 11:39:34,507 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 10, 'som_cluster.y': 11}
+2025-08-05 11:39:34,530 - src.db - INFO - Found 38 documents in queries for query: {'som_cluster.x': 10, 'som_cluster.y': 11}
+2025-08-05 11:39:34,791 - src.db - INFO - Found 676 documents in drug_reviews for query: {'som_cluster.x': 10, 'som_cluster.y': 11}
+2025-08-05 11:39:34,866 - src.db - INFO - Found 8 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 0}
+2025-08-05 11:39:34,887 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 0}
+2025-08-05 11:39:35,152 - src.db - INFO - Found 1035 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 0}
+2025-08-05 11:39:35,259 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 1}
+2025-08-05 11:39:35,281 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 1}
+2025-08-05 11:39:35,544 - src.db - INFO - Found 1419 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 1}
+2025-08-05 11:39:35,808 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 2}
+2025-08-05 11:39:35,838 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 2}
+2025-08-05 11:39:36,102 - src.db - INFO - Found 740 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 2}
+2025-08-05 11:39:36,170 - src.db - INFO - Found 2 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 3}
+2025-08-05 11:39:36,191 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 3}
+2025-08-05 11:39:36,459 - src.db - INFO - Found 4884 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 3}
+2025-08-05 11:39:37,343 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 4}
+2025-08-05 11:39:37,373 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 4}
+2025-08-05 11:39:37,639 - src.db - INFO - Found 4197 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 4}
+2025-08-05 11:39:38,314 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 5}
+2025-08-05 11:39:38,344 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 5}
+2025-08-05 11:39:38,611 - src.db - INFO - Found 1848 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 5}
+2025-08-05 11:39:38,785 - src.db - INFO - Found 233 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 6}
+2025-08-05 11:39:38,809 - src.db - INFO - Found 1036 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 6}
+2025-08-05 11:39:39,074 - src.db - INFO - Found 12 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 6}
+2025-08-05 11:39:39,859 - src.db - INFO - Found 6 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 7}
+2025-08-05 11:39:39,888 - src.db - INFO - Found 0 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 7}
+2025-08-05 11:39:40,155 - src.db - INFO - Found 2425 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 7}
+2025-08-05 11:39:40,482 - src.db - INFO - Found 8 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 8}
+2025-08-05 11:39:40,509 - src.db - INFO - Found 3 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 8}
+2025-08-05 11:39:40,786 - src.db - INFO - Found 13672 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 8}
+2025-08-05 11:39:43,562 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 9}
+2025-08-05 11:39:43,590 - src.db - INFO - Found 24 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 9}
+2025-08-05 11:39:43,866 - src.db - INFO - Found 5371 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 9}
+2025-08-05 11:39:45,035 - src.db - INFO - Found 4 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 10}
+2025-08-05 11:39:45,072 - src.db - INFO - Found 2 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 10}
+2025-08-05 11:39:45,340 - src.db - INFO - Found 5176 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 10}
+2025-08-05 11:39:46,247 - src.db - INFO - Found 0 documents in reports for query: {'som_cluster.x': 11, 'som_cluster.y': 11}
+2025-08-05 11:39:46,274 - src.db - INFO - Found 4 documents in queries for query: {'som_cluster.x': 11, 'som_cluster.y': 11}
+2025-08-05 11:39:46,538 - src.db - INFO - Found 917 documents in drug_reviews for query: {'som_cluster.x': 11, 'som_cluster.y': 11}
+2025-08-05 11:39:47,678 - src.som_visualizer - INFO - Keyword overlay saved to /Users/itobuz/projects/satyaki_personal/MediMap-XAI/models/visualizations/keyword_overlay.png
+2025-08-05 11:40:23,724 - __main__ - INFO - Visualizations saved to: /Users/itobuz/projects/satyaki_personal/MediMap-XAI/models/visualizations
+2025-08-05 11:40:23,724 - __main__ - INFO - Training Summary Report
+2025-08-05 11:40:23,724 - __main__ - INFO - ================================================================================
+2025-08-05 11:40:23,724 - __main__ - INFO - Data Validation:
+2025-08-05 11:40:23,724 - __main__ - INFO - Total documents: 472950
+2025-08-05 11:40:23,724 - __main__ - INFO - Documents with embeddings: 472950
+2025-08-05 11:40:23,724 - __main__ - INFO - SOM Training:
+2025-08-05 11:40:23,724 - __main__ - INFO - Duration: 865.15 seconds
+2025-08-05 11:40:23,724 - __main__ - INFO - Documents processed: 472950
+2025-08-05 11:40:23,724 - __main__ - INFO - SOM dimensions: (12, 12)
+2025-08-05 11:40:23,724 - __main__ - INFO - Model Validation:
+2025-08-05 11:40:23,724 - __main__ - INFO - Search success rate: 100.0%
+2025-08-05 11:40:23,724 - __main__ - INFO - Average similarity: 0.764
+2025-08-05 11:40:23,724 - __main__ - INFO - Clusters utilized: 144
+2025-08-05 11:40:23,724 - __main__ - INFO - Cluster utilization: 100.0%
+2025-08-05 11:40:23,725 - __main__ - INFO - Total pipeline time: 2152.75 seconds
+2025-08-05 11:40:23,725 - __main__ - INFO - ================================================================================
+2025-08-05 11:40:23,725 - __main__ - INFO - Model training pipeline completed successfully!
+2025-08-05 11:40:23,725 - __main__ - INFO - Total time: 2152.75 seconds
+2025-08-05 11:40:23,725 - __main__ - INFO - Model Training Status:
+2025-08-05 11:40:23,725 - __main__ - INFO - --------------------------------------------------------------------------------
+2025-08-05 11:40:23,725 - __main__ - INFO - True Database Connected: True
+2025-08-05 11:40:23,725 - __main__ - INFO - True Embedder Loaded: True
+2025-08-05 11:40:23,725 - __main__ - INFO - True Data Validated: True
+2025-08-05 11:40:23,725 - __main__ - INFO - True Som Trained: True
+2025-08-05 11:40:23,725 - __main__ - INFO - True Clusters Assigned: True
+2025-08-05 11:40:23,725 - __main__ - INFO - True Model Validated: True
+2025-08-05 11:40:23,725 - __main__ - INFO - True Training Complete: True
+2025-08-05 11:40:23,725 - __main__ - INFO - --------------------------------------------------------------------------------
+2025-08-05 11:40:23,725 - __main__ - INFO - Model training completed successfully!
+2025-08-05 11:40:23,725 - __main__ - INFO - Next step: Launch the web app with 'python run_web_app.py'

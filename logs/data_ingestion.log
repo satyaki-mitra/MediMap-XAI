@@ -1,0 +1,89 @@
+2025-08-04 17:39:01,523 - __main__ - INFO - Starting Data Ingestion Pipeline
+2025-08-04 17:39:01,523 - __main__ - INFO - ================================================================================
+2025-08-04 17:39:01,523 - __main__ - INFO - Setting up directory structure...
+2025-08-04 17:39:01,523 - __main__ - INFO - Directory ready: /Users/itobuz/projects/satyaki_personal/MediMap-XAI
+2025-08-04 17:39:01,523 - __main__ - INFO - Directory ready: /Users/itobuz/projects/satyaki_personal/MediMap-XAI/data/raw_data
+2025-08-04 17:39:01,523 - __main__ - INFO - Directory ready: /Users/itobuz/projects/satyaki_personal/MediMap-XAI/models
+2025-08-04 17:39:01,523 - __main__ - INFO - Directory structure setup complete
+2025-08-04 17:39:01,523 - __main__ - INFO - Connecting to MongoDB...
+2025-08-04 17:39:01,523 - __main__ - INFO - URI: mongodb://localhost:27017
+2025-08-04 17:39:01,523 - __main__ - INFO - Database: medimap_xai
+2025-08-04 17:39:01,531 - src.db - INFO - Connected to MongoDB at: mongodb://localhost:27017 (attempted: 1)
+2025-08-04 17:39:01,531 - src.db - INFO - Collection names: ['queries', 'drug_reviews', 'reports']
+2025-08-04 17:39:01,531 - __main__ - INFO - Connected successfully. Existing collections: ['queries', 'drug_reviews', 'reports']
+2025-08-04 17:39:01,531 - __main__ - INFO - Loading embedding model...
+2025-08-04 17:39:01,532 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb
+2025-08-04 17:39:07,298 - src.embedder - INFO - Loaded embedding model: pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb on cpu
+2025-08-04 17:39:07,387 - __main__ - INFO - Embedder ready. Dimension: 768
+2025-08-04 17:39:07,387 - __main__ - INFO - Checking data file availability...
+2025-08-04 17:39:07,387 - __main__ - INFO - Data file status:
+2025-08-04 17:39:07,387 - __main__ - INFO - True reports: True (16.22 MB)
+2025-08-04 17:39:07,387 - __main__ - INFO - True qa: True (21.78 MB)
+2025-08-04 17:39:07,387 - __main__ - INFO - True drug_reviews: True (105.52 MB)
+2025-08-04 17:39:07,387 - __main__ - INFO - Summary: 3/3 data files available
+2025-08-04 17:39:07,387 - __main__ - INFO - Checking existing data in database...
+2025-08-04 17:39:07,389 - src.db - ERROR - count_documents failed on reports: OperationFailure("the match filter must be an expression in an object, full error: {'ok': 0.0, 'errmsg': 'the match filter must be an expression in an object', 'code': 15959, 'codeName': 'Location15959'}")
+2025-08-04 17:39:07,389 - __main__ - INFO - reports: 0 documents
+2025-08-04 17:39:07,390 - src.db - ERROR - count_documents failed on queries: OperationFailure("the match filter must be an expression in an object, full error: {'ok': 0.0, 'errmsg': 'the match filter must be an expression in an object', 'code': 15959, 'codeName': 'Location15959'}")
+2025-08-04 17:39:07,390 - __main__ - INFO - queries: 0 documents
+2025-08-04 17:39:07,390 - src.db - ERROR - count_documents failed on drug_reviews: OperationFailure("the match filter must be an expression in an object, full error: {'ok': 0.0, 'errmsg': 'the match filter must be an expression in an object', 'code': 15959, 'codeName': 'Location15959'}")
+2025-08-04 17:39:07,391 - __main__ - INFO - drug_reviews: 0 documents
+2025-08-04 17:39:07,391 - __main__ - INFO - Total existing documents: 0
+2025-08-04 17:39:07,391 - __main__ - INFO - Initializing data ingestor...
+2025-08-04 17:39:07,391 - __main__ - INFO - Starting medical reports ingestion...
+2025-08-04 17:39:07,497 - src.ingest - INFO - Loaded 4999 reports from /Users/itobuz/projects/satyaki_personal/MediMap-XAI/data/raw_data/medical_reports.csv
+2025-08-04 17:44:19,904 - src.ingest - INFO - Reports ingestion complete: {'success': True, 'processed': 4999, 'failed': 0, 'total': 4999}
+2025-08-04 17:44:19,905 - __main__ - INFO - Reports ingestion completed:
+2025-08-04 17:44:19,909 - __main__ - INFO - Processed: 4999/4999
+2025-08-04 17:44:19,909 - __main__ - INFO - Failed: 0
+2025-08-04 17:44:19,909 - __main__ - INFO - Success rate: 100.0%
+2025-08-04 17:44:19,909 - __main__ - INFO - Starting Q&A pairs ingestion...
+2025-08-04 17:44:20,079 - src.ingest - INFO - Loaded 16412 Q&A pairs from /Users/itobuz/projects/satyaki_personal/MediMap-XAI/data/raw_data/medical_qa.csv
+2025-08-04 18:01:07,973 - src.ingest - INFO - Q&A ingestion complete: {'success': True, 'processed': 16412, 'failed': 0, 'total': 16412}
+2025-08-04 18:01:07,974 - __main__ - INFO - Q&A ingestion completed:
+2025-08-04 18:01:07,975 - __main__ - INFO - Processed: 16412/16412
+2025-08-04 18:01:07,975 - __main__ - INFO - Failed: 0
+2025-08-04 18:01:07,975 - __main__ - INFO - Success rate: 100.0%
+2025-08-04 18:01:07,975 - __main__ - INFO - Starting drug reviews ingestion...
+2025-08-04 18:01:08,773 - src.ingest - INFO - Loaded 215064 drug reviews from /Users/itobuz/projects/satyaki_personal/MediMap-XAI/data/raw_data/drug_reviews.csv
+2025-08-04 21:36:26,366 - src.ingest - INFO - Drug reviews ingestion complete: {'success': True, 'processed': 215064, 'failed': 0, 'total': 215064}
+2025-08-04 21:36:26,384 - __main__ - INFO - Drug reviews ingestion completed:
+2025-08-04 21:36:26,384 - __main__ - INFO - Processed: 215064/215064
+2025-08-04 21:36:26,384 - __main__ - INFO - Failed: 0
+2025-08-04 21:36:26,384 - __main__ - INFO - Success rate: 100.0%
+2025-08-04 21:36:26,384 - __main__ - INFO - Ingestion Summary Report
+2025-08-04 21:36:26,384 - __main__ - INFO - ================================================================================
+2025-08-04 21:36:26,384 - __main__ - INFO - reports: 4999/4999 (100.0%)
+2025-08-04 21:36:26,384 - __main__ - INFO - qa: 16412/16412 (100.0%)
+2025-08-04 21:36:26,384 - __main__ - INFO - drug_reviews: 215064/215064 (100.0%)
+2025-08-04 21:36:26,385 - __main__ - INFO - --------------------------------------------------------------------------------
+2025-08-04 21:36:26,385 - __main__ - INFO - Overall Summary:
+2025-08-04 21:36:26,385 - __main__ - INFO - Total documents processed: 236475
+2025-08-04 21:36:26,385 - __main__ - INFO - Total failed: 0
+2025-08-04 21:36:26,385 - __main__ - INFO - Total files processed: 236475
+2025-08-04 21:36:26,385 - __main__ - INFO - Overall success rate: 100.0%
+2025-08-04 21:36:26,385 - __main__ - INFO - ================================================================================
+2025-08-04 21:36:26,385 - __main__ - INFO - Checking existing data in database...
+2025-08-04 21:36:26,387 - src.db - ERROR - count_documents failed on reports: OperationFailure("the match filter must be an expression in an object, full error: {'ok': 0.0, 'errmsg': 'the match filter must be an expression in an object', 'code': 15959, 'codeName': 'Location15959'}")
+2025-08-04 21:36:26,387 - __main__ - INFO - reports: 0 documents
+2025-08-04 21:36:26,388 - src.db - ERROR - count_documents failed on queries: OperationFailure("the match filter must be an expression in an object, full error: {'ok': 0.0, 'errmsg': 'the match filter must be an expression in an object', 'code': 15959, 'codeName': 'Location15959'}")
+2025-08-04 21:36:26,388 - __main__ - INFO - queries: 0 documents
+2025-08-04 21:36:26,388 - src.db - ERROR - count_documents failed on drug_reviews: OperationFailure("the match filter must be an expression in an object, full error: {'ok': 0.0, 'errmsg': 'the match filter must be an expression in an object', 'code': 15959, 'codeName': 'Location15959'}")
+2025-08-04 21:36:26,388 - __main__ - INFO - drug_reviews: 0 documents
+2025-08-04 21:36:26,388 - __main__ - INFO - Total existing documents: 0
+2025-08-04 21:36:26,389 - __main__ - INFO - Final database state:
+2025-08-04 21:36:26,389 - __main__ - INFO - reports: 0 documents
+2025-08-04 21:36:26,389 - __main__ - INFO - queries: 0 documents
+2025-08-04 21:36:26,389 - __main__ - INFO - drug_reviews: 0 documents
+2025-08-04 21:36:26,389 - __main__ - INFO - Data ingestion pipeline completed successfully!
+2025-08-04 21:36:26,389 - __main__ - INFO - Data Ingestion Status:
+2025-08-04 21:36:26,389 - __main__ - INFO - --------------------------------------------------------------------------------
+2025-08-04 21:36:26,389 - __main__ - INFO - True Database Connected: True
+2025-08-04 21:36:26,389 - __main__ - INFO - True Embedder Ready: True
+2025-08-04 21:36:26,389 - __main__ - INFO - True Reports Ingested: True
+2025-08-04 21:36:26,389 - __main__ - INFO - True Queries Ingested: True
+2025-08-04 21:36:26,389 - __main__ - INFO - True Drug Reviews Ingested: True
+2025-08-04 21:36:26,389 - __main__ - INFO - True Ingestion Complete: True
+2025-08-04 21:36:26,389 - __main__ - INFO - --------------------------------------------------------------------------------
+2025-08-04 21:36:26,389 - __main__ - INFO - Data ingestion completed successfully!
+2025-08-04 21:36:26,389 - __main__ - INFO - Next step: Run model training with 'python run_model_training.py'
