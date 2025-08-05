@@ -1,0 +1,12 @@
+kaggle
+pymongo
+sentence-transformers
+scikit-learn
+minisom
+nltk
+spacy
+tqdm
+shap
+matplotlib
+streamlit
+plotly
