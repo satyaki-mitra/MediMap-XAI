@@ -270,7 +270,6 @@ graph TD
     B --> E[Projected onto SOM]
     E --> F[Find closest BMU & cluster]
     F --> G[Highlight region & explanation visuals]
-end
 ```
 
 ---
