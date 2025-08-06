@@ -130,7 +130,7 @@ Visual cluster maps show:
   graph TD
     A[User Query] --> B[Embed using ClinicalBERT]
     B --> C[Project onto SOM Grid]
-    C --> D["Get BMU (Best Matching Unit)"]
+    C --> D["Get Best Matching Unit (BMU)"]
     D --> E[Highlight Nearby Clusters]
     E --> F[Retrieve Cluster Documents]
     F --> G[Return Results with SOM-based Explanation]
