@@ -127,7 +127,7 @@ Visual cluster maps show:
 ### 3. Explainability Layer
 
 ````mermaid
-flowchart TD
+graph TD
     A[User Query] --> B[Embed using ClinicalBERT]
     B --> C[Project onto SOM Grid]
     C --> D[Get BMU (Best Matching Unit)]
@@ -214,9 +214,6 @@ graph TD
         C1["2,0\n(liver)"] --- C2["2,1\n(pain)"] --- C3["2,2\n(kidney)"]
     end
 ```
-
-(For real visual, use the Streamlit heatmap which auto-populates from MongoDB.)
-
 ---
 
 ## ⚡ Quickstart
