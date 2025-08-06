@@ -126,6 +126,7 @@ Visual cluster maps show:
 
 ### 3. Explainability Layer
 
+````markdown
 ```mermaid
 graph TD
   A[User Query] --> B[Embed using ClinicalBERT]
