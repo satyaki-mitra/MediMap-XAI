@@ -315,12 +315,11 @@ SOM is trained on embedded representations of clinical notes to form clusters. E
 
 ```mermaid
 graph TD
-    UI[User Search UI] --> QueryEmbed
-    QueryEmbed[Embed Query (SBERT)] --> SOMProject
-    SOMProject[Project to SOM Grid] --> ClusterDoc
-    ClusterDoc[Retrieve Cluster Docs] --> ShowResult[Display Explanations + Doc]
+    UI[User Search UI] --> QueryEmbed["Embed Query (SBERT)"]
+    QueryEmbed --> SOMProject["Project to SOM Grid"]
+    SOMProject --> ClusterDoc["Retrieve Cluster Docs"]
+    ClusterDoc --> ShowResult["Display Explanations + Doc"]
 ```
-
 ---
 
 ## 📈 Future Enhancements
