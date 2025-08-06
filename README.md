@@ -127,15 +127,15 @@ Visual cluster maps show:
 ### 3. Explainability Layer
 
 ````markdown
-```mermaid
-graph TD
-  A[User Query] --> B[Embed using ClinicalBERT]
-  B --> C[Project onto SOM Grid]
-  C --> D[Get BMU (Best Matching Unit)]
-  D --> E[Highlight Nearby Clusters]
-  E --> F[Retrieve Cluster Documents]
-  F --> G[Return Results with SOM-based Explanation]
-```
+  ```mermaid
+  graph TD
+    A[User Query] --> B[Embed using ClinicalBERT]
+    B --> C[Project onto SOM Grid]
+    C --> D[Get BMU (Best Matching Unit)]
+    D --> E[Highlight Nearby Clusters]
+    E --> F[Retrieve Cluster Documents]
+    F --> G[Return Results with SOM-based Explanation]
+  ```
 ```
 
 Features:
