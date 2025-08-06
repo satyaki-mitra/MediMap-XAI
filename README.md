@@ -209,9 +209,9 @@ Hover in Streamlit UI for live documents & explanations.
 ```mermaid
 graph TD
     subgraph SOM_Grid
-        A1["0,0\n(diabetes)"] --- A2["0,1\n(cancer)"] --- A3["0,2\n(covid)"]
-        B1["1,0\n(thyroid)"] --- B2["1,1\n(heart)"] --- B3["1,2\n(flu)"]
-        C1["2,0\n(liver)"] --- C2["2,1\n(pain)"] --- C3["2,2\n(kidney)"]
+        A1["0, 0(diabetes)"] --- A2["0, 1(cancer)"] --- A3["0, 2(covid)"]
+        B1["1, 0(thyroid)"] --- B2["1, 1(heart)"] --- B3["1, 2(flu)"]
+        C1["2, 0(liver)"] --- C2["2, 1(pain)"] --- C3["2, 2(kidney)"]
     end
 ```
 ---
@@ -270,6 +270,7 @@ graph TD
     B --> E[Projected onto SOM]
     E --> F[Find closest BMU & cluster]
     F --> G[Highlight region & explanation visuals]
+end
 ```
 
 ---
